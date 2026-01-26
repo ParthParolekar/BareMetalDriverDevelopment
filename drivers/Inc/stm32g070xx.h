@@ -55,7 +55,7 @@
 typedef struct {
 	__vol uint32_t MODER;
 	__vol uint32_t OTYPER;
-	__vol uint32_t OPEEDER;
+	__vol uint32_t OSPEEDR;
 	__vol uint32_t PUPDR;
 	__vol uint32_t IDR;
 	__vol uint32_t ODR;
@@ -105,67 +105,77 @@ typedef struct{
 #define GPIOE			((GPIO_RegDef_t*) GPIOE_BASE)
 #define GPIOF			((GPIO_RegDef_t*) GPIOF_BASE)
 
+#define RCC				((RCC_RegDef_t*)RCC_BASE)
+
 /* ************************************* CLK ENABLE MACROS ************************************* */
 
 //Clock Enable Macros for GPIOx Peripherals
-#define GPIOA_PCLK_EN() (((RCC_RegDef_t*)RCC_BASE)->RCC_IOPENR |= (1<<0))
-#define GPIOB_PCLK_EN() (((RCC_RegDef_t*)RCC_BASE)->RCC_IOPENR |= (1<<1))
-#define GPIOC_PCLK_EN() (((RCC_RegDef_t*)RCC_BASE)->RCC_IOPENR |= (1<<2))
-#define GPIOD_PCLK_EN() (((RCC_RegDef_t*)RCC_BASE)->RCC_IOPENR |= (1<<3))
-#define GPIOE_PCLK_EN() (((RCC_RegDef_t*)RCC_BASE)->RCC_IOPENR |= (1<<4))
-#define GPIOF_PCLK_EN() (((RCC_RegDef_t*)RCC_BASE)->RCC_IOPENR |= (1<<5))
+#define GPIOA_PCLK_EN() (RCC->RCC_IOPENR |= (1<<0))
+#define GPIOB_PCLK_EN() (RCC->RCC_IOPENR |= (1<<1))
+#define GPIOC_PCLK_EN() (RCC->RCC_IOPENR |= (1<<2))
+#define GPIOD_PCLK_EN() (RCC->RCC_IOPENR |= (1<<3))
+#define GPIOE_PCLK_EN() (RCC->RCC_IOPENR |= (1<<4))
+#define GPIOF_PCLK_EN() (RCC->RCC_IOPENR |= (1<<5))
 
 //Clock Enable Macros for I2Cx Peripherals
-#define I2C1_PCLK_EN() (((RCC_RegDef_t*)RCC_BASE)->RCC_APBENR1 |= (1<<21))
-#define I2C2_PCLK_EN() (((RCC_RegDef_t*)RCC_BASE)->RCC_APBENR1 |= (1<<22))
-#define I2C3_PCLK_EN() (((RCC_RegDef_t*)RCC_BASE)->RCC_APBENR1 |= (1<<23))
+#define I2C1_PCLK_EN() (RCC->RCC_APBENR1 |= (1<<21))
+#define I2C2_PCLK_EN() (RCC->RCC_APBENR1 |= (1<<22))
+#define I2C3_PCLK_EN() (RCC->RCC_APBENR1 |= (1<<23))
 
 //Clock Enable Macros for SPIx Peripherals
-#define SPI1_PCLK_EN() (((RCC_RegDef_t*)RCC_BASE)->RCC_APBENR2 |= (1<<12))
-#define SPI2_PCLK_EN() (((RCC_RegDef_t*)RCC_BASE)->RCC_APBENR1 |= (1<<14))
-#define SPI3_PCLK_EN() (((RCC_RegDef_t*)RCC_BASE)->RCC_APBENR1 |= (1<<15))
+#define SPI1_PCLK_EN() (RCC->RCC_APBENR2 |= (1<<12))
+#define SPI2_PCLK_EN() (RCC->RCC_APBENR1 |= (1<<14))
+#define SPI3_PCLK_EN() (RCC->RCC_APBENR1 |= (1<<15))
 
 //Clock Enable Macros for USARTx Peripherals
-#define USART1_PCLK_EN() (((RCC_RegDef_t*)RCC_BASE)->RCC_APBENR2 |= (1<<14))
-#define USART2_PCLK_EN() (((RCC_RegDef_t*)RCC_BASE)->RCC_APBENR1 |= (1<<17))
-#define USART3_PCLK_EN() (((RCC_RegDef_t*)RCC_BASE)->RCC_APBENR1 |= (1<<18))
-#define USART4_PCLK_EN() (((RCC_RegDef_t*)RCC_BASE)->RCC_APBENR1 |= (1<<19))
-#define USART5_PCLK_EN() (((RCC_RegDef_t*)RCC_BASE)->RCC_APBENR1 |= (1<<8))
-#define USART6_PCLK_EN() (((RCC_RegDef_t*)RCC_BASE)->RCC_APBENR1 |= (1<<9))
+#define USART1_PCLK_EN() (RCC->RCC_APBENR2 |= (1<<14))
+#define USART2_PCLK_EN() (RCC->RCC_APBENR1 |= (1<<17))
+#define USART3_PCLK_EN() (RCC->RCC_APBENR1 |= (1<<18))
+#define USART4_PCLK_EN() (RCC->RCC_APBENR1 |= (1<<19))
+#define USART5_PCLK_EN() (RCC->RCC_APBENR1 |= (1<<8))
+#define USART6_PCLK_EN() (RCC->RCC_APBENR1 |= (1<<9))
 
 //Clock Enable Macros for Syscfg Peripherals
-#define SYSCFG_PCLK_EN() (((RCC_RegDef_t*)RCC_BASE)->RCC_APBENR2 |= (1<<0))
+#define SYSCFG_PCLK_EN() (RCC->RCC_APBENR2 |= (1<<0))
 
 /* ************************************* CLK DISABLE MACROS ************************************* */
 
 //Clock Disable Macros for GPIOx Peripherals
-#define GPIOA_PCLK_DI() (((RCC_RegDef_t*)RCC_BASE)->RCC_IOPENR &= ~(1<<0))
-#define GPIOB_PCLK_DI() (((RCC_RegDef_t*)RCC_BASE)->RCC_IOPENR &= ~(1<<1))
-#define GPIOC_PCLK_DI() (((RCC_RegDef_t*)RCC_BASE)->RCC_IOPENR &= ~(1<<2))
-#define GPIOD_PCLK_DI() (((RCC_RegDef_t*)RCC_BASE)->RCC_IOPENR &= ~(1<<3))
-#define GPIOE_PCLK_DI() (((RCC_RegDef_t*)RCC_BASE)->RCC_IOPENR &= ~(1<<4))
-#define GPIOF_PCLK_DI() (((RCC_RegDef_t*)RCC_BASE)->RCC_IOPENR &= ~(1<<5))
+#define GPIOA_PCLK_DI() (RCC->RCC_IOPENR &= ~(1<<0))
+#define GPIOB_PCLK_DI() (RCC->RCC_IOPENR &= ~(1<<1))
+#define GPIOC_PCLK_DI() (RCC->RCC_IOPENR &= ~(1<<2))
+#define GPIOD_PCLK_DI() (RCC->RCC_IOPENR &= ~(1<<3))
+#define GPIOE_PCLK_DI() (RCC->RCC_IOPENR &= ~(1<<4))
+#define GPIOF_PCLK_DI() (RCC->RCC_IOPENR &= ~(1<<5))
 
 //Clock Disable Macros for I2Cx Peripherals
-#define I2C1_PCLK_DI() (((RCC_RegDef_t*)RCC_BASE)->RCC_APBENR1 &= ~(1<<21))
-#define I2C2_PCLK_DI() (((RCC_RegDef_t*)RCC_BASE)->RCC_APBENR1 &= ~(1<<22))
-#define I2C3_PCLK_DI() (((RCC_RegDef_t*)RCC_BASE)->RCC_APBENR1 &= ~(1<<23))
+#define I2C1_PCLK_DI() (RCC->RCC_APBENR1 &= ~(1<<21))
+#define I2C2_PCLK_DI() (RCC->RCC_APBENR1 &= ~(1<<22))
+#define I2C3_PCLK_DI() (RCC->RCC_APBENR1 &= ~(1<<23))
 
 //Clock Disable Macros for SPIx Peripherals
-#define SPI1_PCLK_DI() (((RCC_RegDef_t*)RCC_BASE)->RCC_APBENR2 &= ~(1<<12))
-#define SPI2_PCLK_DI() (((RCC_RegDef_t*)RCC_BASE)->RCC_APBENR1 &= ~(1<<14))
-#define SPI3_PCLK_DI() (((RCC_RegDef_t*)RCC_BASE)->RCC_APBENR1 &= ~(1<<15))
+#define SPI1_PCLK_DI() (RCC->RCC_APBENR2 &= ~(1<<12))
+#define SPI2_PCLK_DI() (RCC->RCC_APBENR1 &= ~(1<<14))
+#define SPI3_PCLK_DI() (RCC->RCC_APBENR1 &= ~(1<<15))
 
 //Clock Disable Macros for USARTx Peripherals
-#define USART1_PCLK_DI() (((RCC_RegDef_t*)RCC_BASE)->RCC_APBENR2 &= ~(1<<14))
-#define USART2_PCLK_DI() (((RCC_RegDef_t*)RCC_BASE)->RCC_APBENR1 &= ~(1<<17))
-#define USART3_PCLK_DI() (((RCC_RegDef_t*)RCC_BASE)->RCC_APBENR1 &= ~(1<<18))
-#define USART4_PCLK_DI() (((RCC_RegDef_t*)RCC_BASE)->RCC_APBENR1 &= ~(1<<19))
-#define USART5_PCLK_DI() (((RCC_RegDef_t*)RCC_BASE)->RCC_APBENR1 &= ~(1<<8))
-#define USART6_PCLK_DI() (((RCC_RegDef_t*)RCC_BASE)->RCC_APBENR1 &= ~(1<<9))
+#define USART1_PCLK_DI() (RCC->RCC_APBENR2 &= ~(1<<14))
+#define USART2_PCLK_DI() (RCC->RCC_APBENR1 &= ~(1<<17))
+#define USART3_PCLK_DI() (RCC->RCC_APBENR1 &= ~(1<<18))
+#define USART4_PCLK_DI() (RCC->RCC_APBENR1 &= ~(1<<19))
+#define USART5_PCLK_DI() (RCC->RCC_APBENR1 &= ~(1<<8))
+#define USART6_PCLK_DI() (RCC->RCC_APBENR1 &= ~(1<<9))
 
 //Clock Disable Macros for Syscfg Peripherals
-#define SYSCFG_PCLK_DI() (((RCC_RegDef_t*)RCC_BASE)->RCC_APBENR2 &= ~(1<<0))
+#define SYSCFG_PCLK_DI() (RCC->RCC_APBENR2 &= ~(1<<0))
+
+/* ******************************* MACROS TO RESET GPIOx PERIPHERALS ******************************* */
+#define GPIOA_REG_RESET() do{(RCC->RCC_IOPRSTR |= (1 << 0)); (RCC->RCC_IOPRSTR &= ~ (1 << 0));} while(0)
+#define GPIOB_REG_RESET() do{(RCC->RCC_IOPRSTR |= (1 << 1)); (RCC->RCC_IOPRSTR &= ~ (1 << 1));} while(0)
+#define GPIOC_REG_RESET() do{(RCC->RCC_IOPRSTR |= (1 << 2)); (RCC->RCC_IOPRSTR &= ~ (1 << 2));} while(0)
+#define GPIOD_REG_RESET() do{(RCC->RCC_IOPRSTR |= (1 << 3)); (RCC->RCC_IOPRSTR &= ~ (1 << 3));} while(0)
+#define GPIOE_REG_RESET() do{(RCC->RCC_IOPRSTR |= (1 << 4)); (RCC->RCC_IOPRSTR &= ~ (1 << 4));} while(0)
+#define GPIOF_REG_RESET() do{(RCC->RCC_IOPRSTR |= (1 << 5)); (RCC->RCC_IOPRSTR &= ~ (1 << 5));} while(0)
 
 
 /* ************************************* GENERIC MACROS ************************************* */
