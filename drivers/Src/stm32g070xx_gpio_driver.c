@@ -122,7 +122,7 @@ void GPIO_DeInit(GPIO_RegDef_t *pGPIOx){
 //Data read and write
 uint8_t GPIO_ReadFromInputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber){
 	uint8_t value;
-	value = (uint8_t)pGPIOx->IDR >> PinNumber & (0x00000001);
+	value = (uint8_t)((pGPIOx->IDR >> PinNumber) & (0x00000001));
 	return value;
 }
 
@@ -134,10 +134,10 @@ uint16_t GPIO_ReadFromInputPort(GPIO_RegDef_t *pGPIOx){
 
 void GPIO_WriteToOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber, uint8_t Value){
 
-	if(Value = GPIO_PIN_SET){
+	if(Value == GPIO_PIN_SET){
 
 		pGPIOx->ODR |= 0x1 << PinNumber;
-	}else if(Value = GPIO_PIN_RESET){
+	}else if(Value == GPIO_PIN_RESET){
 
 		pGPIOx->ODR &= ~(0x1 << PinNumber);
 	}
