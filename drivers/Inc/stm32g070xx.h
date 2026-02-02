@@ -12,6 +12,22 @@
 
 #define __vol volatile
 
+/* ************************************* Processor Specific Details ************************************* */
+
+//ARM Cortex M0+ Processor
+
+//NVIC ISER Register Addresses
+#define NVIC_ISER				((__vol uint32_t*)0xE000E100)
+#define NVIC_ICER				((__vol uint32_t*)0xE000E180)
+
+//NVIC Priority Register Base Address
+#define NVIC_PR_BASE			((__vol uint32_t*)0xE000E400)
+
+//Priority Bits Implemented by ARM Cortex Mx Processor (M0+ = 2 Bits implemented)
+#define PR_BITS_IMPLEMENTED		2
+
+/* ************************************* Peripheral Specific Details ************************************* */
+
 #define FLASH_BASE				0x08000000U			/* Base Address of FLASH Memory */
 #define SRAM_BASE				0x20000000U			/* Base Address of SRAM */
 #define ROM_BASE				0x1FFF0000U			/* Base Address of ROM */
@@ -52,6 +68,7 @@
 
 /************************** Peripheral Register Definition Structs **************************/
 
+// GPIO Register Definition
 typedef struct {
 	__vol uint32_t MODER;
 	__vol uint32_t OTYPER;
@@ -66,8 +83,7 @@ typedef struct {
 	__vol uint32_t BRR;
 }GPIO_RegDef_t;
 
-//GPIO_RegDef_t *pGPIOA = ((GPIO_RegDef_t*)GPIOA_BASE);
-
+// RCC Register Definition
 typedef struct{
 	__vol uint32_t RCC_CR;
 	__vol uint32_t RCC_ICSCR;
@@ -96,6 +112,43 @@ typedef struct{
 	__vol uint32_t RCC_CSR;
 }RCC_RegDef_t;
 
+// EXTI Register Definition
+typedef struct{
+	__vol uint32_t EXTI_RTSR1;
+	__vol uint32_t EXTI_FTSR1;
+	__vol uint32_t EXTI_SWIER1;
+	__vol uint32_t EXTI_RPR1;
+	__vol uint32_t EXTI_FPR1;
+	uint32_t RESERVED1;				//0x014
+	uint32_t RESERVED2;				//0x018
+	uint32_t RESERVED3;				//0x01C
+	uint32_t RESERVED4;				//0x020
+	uint32_t RESERVED5;				//0x024
+	uint32_t RESERVED6;				//0x028
+	uint32_t RESERVED7;				//0x02C
+	uint32_t RESERVED8;				//0x030
+	uint32_t RESERVED9;				//0x034
+	uint32_t RESERVED10;			//0x038
+	uint32_t RESERVED11;			//0x03C
+	uint32_t RESERVED12;			//0x040
+	uint32_t RESERVED13;			//0x044
+	uint32_t RESERVED14;			//0x048
+	uint32_t RESERVED15;			//0x04C
+	uint32_t RESERVED16;			//0x050
+	uint32_t RESERVED17;			//0x054
+	uint32_t RESERVED18;			//0x058
+	uint32_t RESERVED19;			//0x05C
+	__vol uint32_t EXTI_EXTICR[4];
+	uint32_t RESERVED20;			//0x070
+	uint32_t RESERVED21;			//0x074
+	uint32_t RESERVED22;			//0x078
+	uint32_t RESERVED23;			//0x07C
+	__vol uint32_t EXTI_IMR1;
+	__vol uint32_t EXTI_EMR1;
+	uint32_t RESERVED24;			//0x088
+	uint32_t RESERVED25;			//0x08C
+}EXTI_RegDef_t;
+
 /* ***************************peripheral definitions ( Peripheral base addresses typecasted to xxx_RegDef_t) *************************** */
 
 #define GPIOA			((GPIO_RegDef_t*) GPIOA_BASE)
@@ -106,6 +159,7 @@ typedef struct{
 #define GPIOF			((GPIO_RegDef_t*) GPIOF_BASE)
 
 #define RCC				((RCC_RegDef_t*)RCC_BASE)
+#define EXTI			((EXTI_RegDef_t*)EXTI_BASE)
 
 /* ************************************* CLK ENABLE MACROS ************************************* */
 

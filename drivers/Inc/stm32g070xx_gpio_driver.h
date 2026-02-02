@@ -78,6 +78,11 @@ typedef struct{
 #define GPIO_PIN_PU				1			//GPIO PUPDR Value = 01 (Pull Up)
 #define GPIO_PIN_PD				2			//GPIO PUPDR Value = 10 (Pull Down)
 
+/**************************************** EXTI_IRQ_NO MACROS****************************************/
+#define IRQ_NO_EXTI0_1			5
+#define IRQ_NO_EXTI2_3			6
+#define IRQ_NO_EXTI4_15			7
+
 /**************************************** APIs Supported By this driver ****************************************/
 //Peripheral Clock Setup
 void GPIO_PeriClockControl(GPIO_RegDef_t *pGPIOx, uint8_t EnOrDi);
@@ -94,8 +99,12 @@ void GPIO_WriteToOutputPort(GPIO_RegDef_t *pGPIOx, uint16_t Value);
 void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber);
 
 //IRQ configuration and ISR handling
-void GPIO_IRQConfig(uint8_t IRQNumber, uint8_t IRQPriority, uint8_t EnOrDi);
+void GPIO_IRQInterruptConfig(uint8_t IRQNumber, uint8_t EnOrDi);
+void GPIO_IRQPriorityConfig(uint8_t IRQNumber, uint8_t IRQPriority);
 void GPIO_IRQHandling(uint8_t PinNumber);
+
+//Helper Function for EXTI_EXTICR Port Number
+uint8_t GPIO_BASEADDR_TO_PORTCODE(GPIO_RegDef_t *PORT);
 
 
 
